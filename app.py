@@ -8,7 +8,7 @@ import pandas as pd
 # 加载训练好的 XGBoost 模型
 model = pickle.load(open('xgb_model.pkl', 'rb'))
 
-st.title('Metal-doped MnO2 Specific Capacity Predictor')
+st.title('Metal-doped Manganese Dioxide Specific Capacity Predictor')
 # 读取元素性质数据
 atom_data = pd.read_csv('Atom.csv')
 # 用户选择元素
