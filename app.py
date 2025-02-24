@@ -21,8 +21,8 @@ CG, MW, EN, CR = element_properties
 metal_types = {
     1: "Alkali Metal",
     2: "Transition Metal",
-    3: "Rare earth metal",
-    4: "Post-transition metal"
+    3: "Rare Earth Metal",
+    4: "Post-Transition Metal"
 }
 
 # 获取金属种类名称
