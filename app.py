@@ -17,6 +17,17 @@ selected_element = st.selectbox('Select Element:', element_symbols)
 element_properties = atom_data[atom_data.iloc[:, 0] == selected_element].iloc[0, 1:]
 CG, MW, EN, CR = element_properties
 
+# 定义CG值与金属种类的映射关系
+metal_types = {
+    1: "Alkali Metal",
+    2: "Transition Metal",
+    3: "Rare earth metal",
+    4: "Post-transition metal"
+}
+
+# 获取金属种类名称
+metal_type = metal_types.get(CG, "Unknown")
+
 # 其他输入特征
 Ratio = st.number_input('Ratio', value=0.01, format="%.3f", step=0.001)  # 比例
 Zn2_plus = st.number_input('Zn2+ concentration (Unit: mol/L)', value=2.0,  step=0.5)  # Zn2+浓度
@@ -27,7 +38,7 @@ Current_Density = st.number_input('Current Density (Unit: A/g)', value=0.5, form
 
 # 显示选定元素的属性
 st.write(f'Selected Element: {selected_element}')
-st.write(f'Category: {CG}, Molecular weight: {MW}, Electronegativity: {EN}, Covalent Radius: {CR}')
+st.write(f'Category: {metal_type}, Molecular weight: {MW}, Electronegativity: {EN}, Covalent Radius: {CR}')
 
 # 当用户点击预测按钮时进行模型预测
 if st.button('Predict'):
