@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 # 加载训练好的 XGBoost 模型
-model = pickle.load(open('xgb_model.pkl', 'rb'))
+model = pickle.load(open('xgb_model1.pkl', 'rb'))
 
 st.title('Metal-doped Manganese Dioxide Specific Capacity Predictor')
 # 读取元素性质数据
@@ -15,19 +15,13 @@ atom_data = pd.read_csv('Atom.csv')
 element_symbols = atom_data.iloc[:, 0].tolist()  # 获取元素符号列表
 selected_element = st.selectbox('Select Element:', element_symbols)
 element_properties = atom_data[atom_data.iloc[:, 0] == selected_element].iloc[0, 1:]
-CG, MW, EN, CR = element_properties
+State, MW, EN, CR = element_properties
 
-# 定义CG值与金属种类的映射关系
-metal_types = {
-    1: "Alkali Metal",
-    2: "Transition Metal",
-    3: "Rare Earth Metal",
-    4: "Post-Transition Metal"
-}
-
-# 获取金属种类名称
-metal_type = metal_types.get(CG, "Unknown")
-
+Experiment_method = pd.read_csv('methods.csv')
+# 用户选择元素
+methods_symbols = Experiment_method.iloc[:, 0].tolist() 
+selected_method = st.selectbox('Experimental method:', methods_symbols)
+EM = Experiment_method[Experiment_method.iloc[:, 0] == selected_method].iloc[0, 1]
 # 其他输入特征
 Ratio = st.number_input('Ratio', value=0.01, format="%.3f", step=0.001)  # 比例
 Zn2_plus = st.number_input('Zn2+ concentration (Unit: mol/L)', value=2.0,  step=0.5)  # Zn2+浓度
@@ -38,21 +32,22 @@ Current_Density = st.number_input('Current Density (Unit: A/g)', value=0.5, form
 
 # 显示选定元素的属性
 st.write(f'Selected Element: {selected_element}')
-st.write(f'Category: {metal_type}, Molecular weight: {MW}, Electronegativity: {EN}, Covalent Radius: {CR}')
+st.write(f'Molecular weight: {MW}, Electronegativity: {EN}, Covalent Radius: {CR}, State: {State}')
 
 # 当用户点击预测按钮时进行模型预测
 if st.button('Predict'):
 
     # 转换为DataFrame并指定列名（需与训练时完全一致）
     feature_columns = [
-        'MW', 'EN', 'CR','CG',
-        'Ratio', 'Zn2+', 'Mn2+',
-        'Low','High',  'CD'
+        'MW', 'EN', 'CR','State',
+        'Ratio', 'EM', 'Zn2+', 'Mn2+',
+        'Low', 'High', 'CD'
     ]
     
     input_df = pd.DataFrame([[
-        MW, EN, CR, CG,
+        MW, EN, CR, State,
         Ratio,
+        EM,
         Zn2_plus,
         Mn2_plus,
         low_voltage,
