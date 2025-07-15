@@ -35,7 +35,7 @@ selected_method = st.selectbox('Experimental Method:', methods_symbols)
 EM = Experiment_method[Experiment_method.iloc[:, 0] == selected_method].iloc[0, 1]
 # Other features with sliders
 st.subheader('Input Parameters')
-Ratio = st.slider('Ratio', min_value=0.01, max_value=1.0, value=0.01, step=0.001)
+Ratio = st.slider('Ratio', min_value=0.01, max_value=0.5, value=0.01, step=0.001)
 Zn2_plus = st.slider('Zn2+ Concentration (mol/L)', min_value=0.1, max_value=4.0, value=2.0, step=0.1)
 Mn2_plus = st.slider('Mn2+ Concentration (mol/L)', min_value=0.05, max_value=1.0, value=0.2, step=0.01)
 high_voltage = st.slider('High Voltage (V)', min_value=1.25, max_value=1.95, value=1.8, step=0.01)
