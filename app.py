@@ -39,7 +39,7 @@ Ratio = st.slider('Ratio', min_value=0.01, max_value=0.5, value=0.01, step=0.001
 Zn2_plus = st.slider('Zn2+ Concentration (mol/L)', min_value=0.1, max_value=4.0, value=2.0, step=0.1)
 Mn2_plus = st.slider('Mn2+ Concentration (mol/L)', min_value=0.05, max_value=1.0, value=0.2, step=0.01)
 high_voltage = st.slider('High Voltage (V)', min_value=1.65, max_value=1.95, value=1.8, step=0.01)
-low_voltage = st.slider('Low Voltage (V)', min_value=0.1, max_value=1.1, value=0.8, step=0.01)
+low_voltage = st.slider('Low Voltage (V)', min_value=1, max_value=1.1, value=0.8, step=0.01)
 Current_Density = st.slider('Current Density (A/g)', min_value=0.1, max_value=5.0, value=0.5, step=0.01)
 
 # Prediction button with progress bar
